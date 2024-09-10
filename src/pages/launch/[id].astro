@@ -1,0 +1,26 @@
+---
+import {
+  getSpaceXLaunches,
+  getSpaceXLaunchesById,
+} from "../../services/spacex";
+import Layout from "../../layouts/Layout.astro";
+const { id } = Astro.params;
+
+let launch;
+
+if (id) launch = await getSpaceXLaunchesById({ id });
+---
+
+<Layout title={`Lanzamiento n°${id}`}>
+  <article>
+    <img
+      class='w-52 h-auto'
+      src={launch?.links?.patch?.small}
+      alt={launch?.name}
+    />
+    <h2 class='4xl text-white font-bold'>
+      Launch #{launch?.flight_number}
+    </h2>
+    <p class='text-lg'>{launch?.details}</p>
+  </article>
+</Layout>
